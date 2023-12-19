@@ -20,25 +20,51 @@ namespace StockMarketWatcherBackend.Controllers
                     new List<float>{0,1,0,3,0,5,0,2,25}
                 ) // For testing purposes
         };
-    }
 
-    static private string GetData(string url)
-    {
-        var request = (HttpWebRequest)WebRequest.Create(url);
-        request.Method = "GET";
-
-        try
+        static private string GetData(string url)
         {
-            using var webResponse = request.GetResponse();
-            using var webStream = webResponse.GetResponseStream();
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
 
-            using var reader = new StreamReader(webStream);
-            var data = reader.ReadToEnd();
-            return data;
+            try
+            {
+                using var webResponse = request.GetResponse();
+                using var webStream = webResponse.GetResponseStream();
+
+                using var reader = new StreamReader(webStream);
+                var data = reader.ReadToEnd();
+                return data;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
-        catch (Exception ex)
+
+        private float GetPrice(string stock)
         {
-            return null;
+            string token = "pk_ba830850a33948b4b3a888ac2a569d98";
+
+            
+            string url = String.Format("https://cloud.iexapis.com/v1/stock/{0}/quote?token={1}", stock, token);
+
+            // Search for stocks price from api
+            var result = GetData(url);
+
+            if (result == null)
+            {
+                return -1;
+            }
+
+            JObject json = JObject.Parse(result);
+
+            if (json["latestPrice"] == null)
+            {
+                return -1;
+            }
+
+            float price = (float)json["latestPrice"];
+            return price;
         }
     }
 
