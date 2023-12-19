@@ -4,7 +4,7 @@ Ext.define('MarketMaven.view.main.Form', {
     title: 'Monitor a new Stock',
     width: 350,
     boddyPadding: 5,
-    url: 'http://localhost:1234/stock', // TODO ADJUST
+    url: 'http://localhost:5209/stock', // TODO ADJUST
     method: 'POST', // HTTP Method
 
     layout: 'anchor',

@@ -17,7 +17,7 @@ Ext.define('MarketMaven.model.StocksStore', {
             type: 'json',
             rootProperty: 'items'
         },
-        url: 'http://localhost:1234/stock' // TODO CHANGE URL
+        url: 'http://localhost:5209/stock' // TODO CHANGE URL
     }
 
 });
