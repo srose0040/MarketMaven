@@ -4,6 +4,7 @@ using System.Collections;
 using System.Net;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace StockMarketWatcherBackend.Controllers
 {
@@ -11,6 +12,10 @@ namespace StockMarketWatcherBackend.Controllers
     [ApiController]
     public class StockController : ControllerBase
     {
+        private readonly string token = "pk_ba830850a33948b4b3a888ac2a569d98";
+
+
+       
         static public List<Stock> stocks = new List<Stock>()
         {
             new Stock(
@@ -59,6 +64,23 @@ namespace StockMarketWatcherBackend.Controllers
             return Ok(stocks[index]);
         }
 
+        private void GetHistData(string param, Stock stock)
+        {
+
+            string url = String.Format("https://cloud.iexapis.com/v1/stock/{0}/chart/1m?token={1}", param, token);
+
+            var histData = GetData(url);
+
+            JArray jsonHist = JArray.Parse(histData);
+
+            foreach (JObject item in jsonHist)
+            {
+                float tmp = (float)item["open"];
+                stock.Diff.Add(tmp);
+            }
+
+        }
+
         [HttpPost]
         public IActionResult Create(Param param)
         {
@@ -75,6 +97,10 @@ namespace StockMarketWatcherBackend.Controllers
             {
                 return BadRequest();
             }
+
+            // Retrive stock historical data to add to watchlist
+            
+
 
             stocks.Add(new Stock(param.nameInp, price, price, new List<float> { 0f }));
 
@@ -104,9 +130,7 @@ namespace StockMarketWatcherBackend.Controllers
 
         private float GetPrice(string stock)
         {
-            string token = "pk_ba830850a33948b4b3a888ac2a569d98";
-
-            
+          
             string url = String.Format("https://cloud.iexapis.com/v1/stock/{0}/quote?token={1}", stock, token);
 
             // Search for stocks price from api
