@@ -7,7 +7,6 @@ Ext.define('MarketMaven.model.StocksStore', {
     [
         {name: 'name'},
         {name: 'priceNow'},
-        {name: 'startingPrice'},
         {name: 'diff'}
     ],
     // Data for stock will come from this proxy
