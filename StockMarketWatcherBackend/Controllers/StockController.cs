@@ -59,6 +59,29 @@ namespace StockMarketWatcherBackend.Controllers
             return Ok(stocks[index]);
         }
 
+        [HttpPost]
+        public IActionResult Create(Param param)
+        {
+            // Get stock from watchlist by their name 
+            int index = stocks.FindIndex(x => x.Name == param.nameInp);
+
+            if (index > -1) // If we have returned a duplicate entry
+            {
+                return BadRequest();
+            }
+
+            float price = GetPrice(param.nameInp);
+            if (price < 0) 
+            {
+                return BadRequest();
+            }
+
+            stocks.Add(new Stock(param.nameInp, price, price, new List<float> { 0f }));
+
+            return Ok();
+
+        }
+
         static private string GetData(string url)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
@@ -104,6 +127,11 @@ namespace StockMarketWatcherBackend.Controllers
             float price = (float)json["latestPrice"];
             return price;
         }
+    }
+
+    public class Param // Class for the API
+    {
+        public string nameInp { get; set; }
     }
 
 }
