@@ -2,7 +2,7 @@ Ext.define('MarketMaven.model.StocksStore', {
     extend: 'Ext.data.Store',
     alias: 'store.StocksStore',
     model: 'MarketMaven.model.Stock',
-    autoload: true,
+    autoLoad: true,
     fields:
     [
         {name: 'name'},

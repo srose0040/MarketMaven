@@ -5,7 +5,6 @@ Ext.define('MarketMaven.model.Stock', {
     fields: [
         {name: 'name', type: 'string'},
         {name: 'priceNow', type: 'float'},
-        {name: 'startingPrice', type: 'float'},
         {name: 'diff', type: 'float'}
     ]
 });
