@@ -18,12 +18,7 @@ namespace StockMarketWatcherBackend.Controllers
        
         static public List<Stock> stocks = new List<Stock>()
         {
-            new Stock(
-                    "MSFT",
-                    300,
-                    233,
-                    new List<float>{0,1,0,3,0,5,0,2,25}
-                ) // For testing purposes
+
         };
 
         [HttpGet]
@@ -41,11 +36,8 @@ namespace StockMarketWatcherBackend.Controllers
                 }
 
                 stock.PriceNow = price;
-
-                // Calculating the difference between the starting price and current price
-                stock.Diff.Add(((stock.PriceNow - stock.StartingPrice) / (stock.StartingPrice / 100)) / 100);
+               
             }
-
 
             return stocks;
         }
@@ -64,10 +56,10 @@ namespace StockMarketWatcherBackend.Controllers
             return Ok(stocks[index]);
         }
 
-        private void GetHistData(string param, Stock stock)
+        private void GetHistData(Stock stock)
         {
 
-            string url = String.Format("https://cloud.iexapis.com/v1/stock/{0}/chart/1m?token={1}", param, token);
+            string url = String.Format("https://cloud.iexapis.com/v1/stock/{0}/chart/1m?token={1}", stock.Name, token);
 
             var histData = GetData(url);
 
@@ -99,10 +91,13 @@ namespace StockMarketWatcherBackend.Controllers
             }
 
             // Retrive stock historical data to add to watchlist
-            
+            Stock newStock = new Stock();
+            newStock.Diff = new List<float>();
+            newStock.Name = param.nameInp;
+            newStock.PriceNow = price;
+            GetHistData(newStock);
 
-
-            stocks.Add(new Stock(param.nameInp, price, price, new List<float> { 0f }));
+            stocks.Add(newStock);
 
             return Ok();
 
