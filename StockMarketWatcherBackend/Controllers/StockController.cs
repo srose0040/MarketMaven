@@ -21,4 +21,25 @@ namespace StockMarketWatcherBackend.Controllers
                 ) // For testing purposes
         };
     }
+
+    static private string GetData(string url)
+    {
+        var request = (HttpWebRequest)WebRequest.Create(url);
+        request.Method = "GET";
+
+        try
+        {
+            using var webResponse = request.GetResponse();
+            using var webStream = webResponse.GetResponseStream();
+
+            using var reader = new StreamReader(webStream);
+            var data = reader.ReadToEnd();
+            return data;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
 }
