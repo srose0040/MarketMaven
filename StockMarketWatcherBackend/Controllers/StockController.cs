@@ -21,6 +21,30 @@ namespace StockMarketWatcherBackend.Controllers
                 ) // For testing purposes
         };
 
+        [HttpGet]
+        public IEnumerable<Stock> Get()
+        {
+            // Grab latest stock info 
+
+            foreach (var stock in stocks)
+            {
+                float price = GetPrice(stock.Name); // Sending request to get price for stock
+
+                if (price < 0f)
+                {
+                    price = 0;
+                }
+
+                stock.PriceNow = price;
+
+                // Calculating the difference between the starting price and current price
+                stock.Diff.Add(((stock.PriceNow - stock.StartingPrice) / (stock.StartingPrice / 100)) / 100);
+            }
+
+
+            return stocks;
+        }
+
         static private string GetData(string url)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
