@@ -6,14 +6,15 @@ Ext.define('MarketMaven.view.main.Grid', {
     columns: [
        {text: 'Name', dataIndex: 'name', flex: 1},
        {text: 'Price Now', dataIndex: 'priceNow', flex: 1},
-       {text: 'Starting Price', dataIndex: 'startingPrice', flex: 1},
        {
-           text: 'Difference',
+           text: 'Last Month',
            dataIndex: 'diff',
            xtype: 'widgetcolumn',
            widget: {
-               xtype: 'progress',
-               textTpl: '{value:percent}'
+               xtype: 'sparklineline',
+               fillColor: '#ddf',
+               width: 100,
+               height: 20
            },
            flex: 1
 
