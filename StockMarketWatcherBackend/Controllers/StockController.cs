@@ -45,6 +45,20 @@ namespace StockMarketWatcherBackend.Controllers
             return stocks;
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<Stock> Find(string id)
+        {
+            // Get stock from watchlist by their name 
+            int index = stocks.FindIndex(x => x.Name == id);
+
+            if (index == -1)
+            {
+                return NotFound();
+            }
+
+            return Ok(stocks[index]);
+        }
+
         static private string GetData(string url)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
