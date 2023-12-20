@@ -10,7 +10,7 @@
 
 <h2>Purpose</h2>
 <p>MarketMaven is a stock market watcher application designed to help users monitor stock prices and track their performance over time.</p>
-<p>Be sure to watch the video demonstration of the app, which is located here <a href="https://github.com/srose0040/MarketMaven/tree/main/Video%20Demonstration%20Of%20App">.</p>
+<p>Be sure to watch the video demonstration of the app, which is located <a href="https://github.com/srose0040/MarketMaven/tree/main/Video%20Demonstration%20Of%20App">here.</p>
 
 <h2>Project Structure</h2>
 
