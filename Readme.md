@@ -3,25 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MarketMaven Stock Market Watcher</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      margin: 20px;
-      max-width: 800px;
-    }
-    h1, h2 {
-      color: #0366d6;
-    }
-    code {
-      background-color: #f8f8f8;
-      border: 1px solid #eaeaea;
-      padding: 0.2em 0.4em;
-      border-radius: 4px;
-      font-size: 90%;
-    }
-  </style>
 </head>
 <body>
 
